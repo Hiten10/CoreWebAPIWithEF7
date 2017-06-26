@@ -1,7 +1,6 @@
 ﻿using APICoreExample.Models;
 using Microsoft.AspNetCore.Mvc;
 //using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,12 +18,15 @@ namespace APICoreExample.Controllers
             return Ok(result);
         }
 
+        //[HttpGet("{id:int}")] // with int constraint
         [Route("{id:int}")]
-        [HttpGet]
+        [HttpGet] //use Verbs attribute to work with swagger and attribute Routing
+        //[HttpGet("{id}")] // No Constraint 
+        //[Route("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            //return Ok(await _db.Customer.FindAsync(id));
-            return Ok(await _db.Customer.FirstOrDefaultAsync(c => c.Id.Equals(id)));
+            return Ok(await _db.Customer.FindAsync(id));
+            //return Ok(await _db.Customer.FirstOrDefaultAsync(c => c.Id.Equals(id)));
         }
 
         [HttpPost]
